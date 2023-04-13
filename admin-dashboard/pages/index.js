@@ -9,7 +9,7 @@ export default function Home() {
     <Layout>
       <div className="text-blue-900 flex justify-between">
         <div className="flex items-center gap-2">
-          <h1 className="font-semibold">Hello, {session?.user?.name}</h1>
+          <div className="font-semibold">Hello, {session?.user?.name}</div>
         </div>
 
         <div className="flex gap-1 py-1 px-2 rounded-md items-center text-black bg-gray-300">

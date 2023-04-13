@@ -20,7 +20,7 @@ export default function Layout({children}) {
     <div className="bg-blue-900 min-h-screen flex">
 
       <Nav/>
-      <div className="bg-white flex-1 mt-2 mr-2 mb-2 rounded-lg p-2">
+      <div className="bg-white flex-1 mt-2 mr-2 mb-2 rounded-lg p-4">
         {children}
       </div>
 
