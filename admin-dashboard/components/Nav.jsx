@@ -1,7 +1,7 @@
 import Link from "next/link"
 import {GiShoppingBag} from "react-icons/gi"
 import {AiOutlineHome} from "react-icons/ai"
-import {BiCog} from "react-icons/bi"
+import {BiCog, BiCategoryAlt} from "react-icons/bi"
 import {FaClipboardList} from "react-icons/fa"
 import {BsFillBoxFill} from "react-icons/bs"
 import { useRouter } from "next/router"
@@ -31,6 +31,10 @@ export default function Nav() {
                 <Link className={pathname.includes('/products') ? activeLink : inactiveLink} href={'/products'}>
                     <BsFillBoxFill size={25}/>
                     Products
+                </Link>
+                <Link className={pathname.includes('/categories') ? activeLink : inactiveLink} href={'/categories'}>
+                    <BiCategoryAlt size={25}/>
+                    Categories
                 </Link>
                 <Link className={pathname.includes('/orders') ? activeLink : inactiveLink} href={'/orders'}>
                     <FaClipboardList size={25}/>
