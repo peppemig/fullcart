@@ -1,7 +1,7 @@
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {AiOutlinePlusCircle} from "react-icons/ai"
 import {PulseLoader} from "react-spinners"
 
@@ -10,19 +10,28 @@ export default function ProductForm({
     title: existingTitle,
     description: existingDescription,
     price: existingPrice,
-    images: existingImages
+    images: existingImages,
+    category: existingCategory
 }) {
     const [title, setTitle] = useState(existingTitle || '')
     const [description, setDescription] = useState(existingDescription || '')
     const [price, setPrice] = useState(existingPrice || '')
     const [images, setImages] = useState(existingImages || [])
+    const [category, setCategory] = useState(existingCategory || '')
     const [goToProducts, setGoToProducts] = useState(false)
     const [isUploading, setIsUploading] = useState(false)
+    const [categories, setCategories] = useState([])
     const router = useRouter()
+
+    useEffect(() => {
+        axios.get('/api/categories').then(response => {
+            setCategories(response.data)
+        })
+    })
 
     async function saveProduct(e) {
         e.preventDefault()
-        const data = {title, description, price, images}
+        const data = {title, description, price, images, category}
 
         if (_id) {
             await axios.put('/api/products', {...data,_id})
@@ -60,6 +69,14 @@ export default function ProductForm({
 
             <label >Product name</label>
             <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Product name"/>
+
+            <label>Category</label>
+            <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                <option value="">No category</option>
+                {categories.length > 0 && categories.map(cat => (
+                    <option value={cat._id} key={cat._id}>{cat.name}</option>
+                ))}
+            </select>
 
             <label>Images</label>
             <div className="mb-2 flex gap-1 items-center">
