@@ -6,9 +6,9 @@ export default async function handle(req,res) {
     await mongooseConnect()
 
     if (method === 'POST') {
-        const {name, parentCategory} = req.body
+        const {name, parentCategory, properties} = req.body
 
-        const categoryDoc = await Category.create({name: name, parent: parentCategory})
+        const categoryDoc = await Category.create({name: name, parent: parentCategory, properties: properties})
         res.json(categoryDoc)
     }
 
@@ -18,14 +18,14 @@ export default async function handle(req,res) {
     }
 
     if (method === 'PUT') {
-        const {name, parentCategory, _id} = req.body
+        const {name, parentCategory, _id, properties} = req.body
 
         if (parentCategory === 'No parent category') {
-            const categoryDoc = await Category.updateOne({_id:_id}, {name:name})
+            const categoryDoc = await Category.updateOne({_id:_id}, {name:name, properties:properties})
             const unsetParent = await Category.updateOne({_id:_id}, {$unset: {parent: 1}})
             res.json(unsetParent)
         } else {
-            const categoryDoc = await Category.updateOne({_id:_id},{name: name, parent: parentCategory})
+            const categoryDoc = await Category.updateOne({_id:_id},{name: name, parent: parentCategory, properties:properties})
             res.json(categoryDoc)
         }
     }

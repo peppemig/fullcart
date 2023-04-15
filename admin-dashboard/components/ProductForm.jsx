@@ -11,7 +11,7 @@ export default function ProductForm({
     description: existingDescription,
     price: existingPrice,
     images: existingImages,
-    category: existingCategory
+    category: existingCategory,
 }) {
     const [title, setTitle] = useState(existingTitle || '')
     const [description, setDescription] = useState(existingDescription || '')
